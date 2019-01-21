@@ -1,0 +1,35 @@
+<form [formGroup]="signupform" method="post" (ngSubmit)="onSubmit()">
+  <div class="columns is-multiline">
+    <div class="column is-full">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input type="email" class="input" placeholder="Email" formControlName="email">
+          <span class="icon is-small is-left">
+            <i class="fa fa-envelope"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="column is-full">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input type="text" class="input" placeholder="Username" formControlName="username">
+          <span class="icon is-small is-left">
+            <i class="fa fa-user"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="column is-full">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input class="input" type="password" placeholder="Password" formControlName="password">
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+  <button class="buttom is-info" type="submit">Sign Up</button>
+</form>
