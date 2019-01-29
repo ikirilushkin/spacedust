@@ -10,8 +10,8 @@ export class AuthService {
   constructor(public http: HttpClient) {}
 
   public signup(user: NewUser): Observable<any> {
-    console.log(user);
-    return empty();
-    // return this.http.post(`/api/users`, { ...user });
+    // console.log(user);
+    // return empty();
+    return this.http.post(`/api/users`, { ...user });
   }
 }
