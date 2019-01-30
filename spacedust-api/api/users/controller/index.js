@@ -1,14 +1,16 @@
 const queries = require('./../query');
+const util = require('./../util');
 
 const postUser = async (req, res) => {
     try {
+        const hashedPassword = await util.hashPassword(req.body.password);
         const userData = {
             email: req.body.email,
             username: req.body.username,
-            password: req.body.password
+            password: hashedPassword
         };
 
-        await queries.createUser(userData);
+        const user = await queries.createUser(userData);
         return res.json({message: "user created"});
     } catch (err) {
         return res.status(400).json({
