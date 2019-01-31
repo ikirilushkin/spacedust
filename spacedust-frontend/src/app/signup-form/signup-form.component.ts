@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {NewUser} from "../user/user.model";
-import {AuthService} from "../auth/auth.service";
+import {NewUser} from '../user/user.model';
+import {AuthService} from '../auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-signup-form',
@@ -14,7 +15,7 @@ export class SignupFormComponent implements OnInit {
   public emailValidating = false;
   public signupResult: any;
 
-  constructor(private fb: FormBuilder, private authService: AuthService) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.createForm();
@@ -35,7 +36,7 @@ export class SignupFormComponent implements OnInit {
   }
 
   onSubmit(): void {
-    if(this.signupForm.valid) {
+    if (this.signupForm.valid) {
       this.signupLoading = true;
       const { username, email, password } = this.signupForm.value;
       const newUser: NewUser = {
@@ -45,12 +46,21 @@ export class SignupFormComponent implements OnInit {
       };
       this.authService.signup(newUser)
         .subscribe(result => {
-          console.log(result);
+          this.signupResult = {
+            message: result.message,
+            state: 'success'
+          };
           this.signupLoading = false;
+          setTimeout(() => {
+            this.router.navigate(['catalog']);
+          }, 1500);
         }, err => {
-          console.log(err);
+          this.signupResult = {
+            message: err.error.message,
+            state: 'error'
+          };
           this.signupLoading = false;
-        })
+        });
     }
   }
 }

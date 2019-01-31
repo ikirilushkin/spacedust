@@ -8,12 +8,16 @@ import { SignupFormComponent } from './signup-form/signup-form.component';
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
 import { ROUTES } from "./app.routes";
+import { FormMessageComponent } from './form-message/form-message.component';
+import { CatalogComponent } from './catalog/catalog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    SignupFormComponent
+    SignupFormComponent,
+    FormMessageComponent,
+    CatalogComponent
   ],
   imports: [
     BrowserModule,
