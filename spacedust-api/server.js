@@ -11,6 +11,7 @@ app.get("/ping", (req, res) => {
 });
 
 app.use("/api/users", require("./api/users"));
+app.use("/api/exoplanets", require("./api/exoplanets"));
 
 async function connect() {
     try {
