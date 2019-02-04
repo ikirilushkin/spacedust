@@ -10,6 +10,9 @@ import { RouterModule } from "@angular/router";
 import { ROUTES } from "./app.routes";
 import { FormMessageComponent } from './form-message/form-message.component';
 import { CatalogComponent } from './catalog/catalog.component';
+import {ExoplanetService} from "./exoplanet/exoplanet.service";
+import { ExoplanetCardComponent } from './exoplanet-card/exoplanet-card.component';
+import { LoginFormComponent } from './login-form/login-form.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +20,9 @@ import { CatalogComponent } from './catalog/catalog.component';
     LoginComponent,
     SignupFormComponent,
     FormMessageComponent,
-    CatalogComponent
+    CatalogComponent,
+    ExoplanetCardComponent,
+    LoginFormComponent
   ],
   imports: [
     BrowserModule,
@@ -25,7 +30,7 @@ import { CatalogComponent } from './catalog/catalog.component';
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [ExoplanetService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
