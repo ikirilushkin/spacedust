@@ -1,0 +1,33 @@
+<form [formGroup]="logingForm" method="post" (ngSubmit)="onSubmit()">
+  <div class="column is-multiline">
+    <div class="column is-full">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input class="input" type="email" placeholder="Email/Username" formControlName="usernameOrEmail">
+          <span class="icon is-small is-left">
+            <i class="fa fa-envelope"></i>
+          </span>
+        </p>
+        <small class="has-text-danger"
+               *ngIf="logingForm.get('usernameOrEmail').hasError('required') && logingForm.get('usernameOrEmail').dirty">
+          Email or username is required
+        </small>
+      </div>
+    </div>
+    <div class="column is-full">
+      <div class="field">
+        <p class="control has-icons-left">
+          <input class="input" type="email" placeholder="Password" formControlName="password">
+          <span class="icon is-small is-left">
+            <i class="fa fa-lock"></i>
+          </span>
+        </p>
+        <small class="has-text-danger"
+               *ngIf="logingForm.get('password').hasError('required') && logingForm.get('password').dirty">
+          Password is required
+        </small>
+      </div>
+    </div>
+  </div>
+  <button class="button is-default" type="submit" [ngClass]="{'is-loading': loginLoading}">Log In</button>
+</form>
