@@ -16,4 +16,8 @@ const hashPassword = password => {
     }))
 };
 
-module.exports = { hashPassword };
+const verifyPassword = (passwordAttempt, hashedPassword) => {
+    return bcrypt.compare(passwordAttempt, hashedPassword);
+};
+
+module.exports = { hashPassword, verifyPassword };

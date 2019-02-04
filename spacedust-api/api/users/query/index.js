@@ -10,4 +10,14 @@ const createUser = async userData => {
 
 };
 
-module.exports = { createUser };
+const getUser = async usernameOrEmail => {
+    try {
+        return await User.findOne({
+            $or: [{username: usernameOrEmail}, { email: usernameOrEmail}]
+        })
+    } catch (err) {
+        return err;
+    }
+};
+
+module.exports = { createUser, getUser };
