@@ -19,6 +19,7 @@ app.get("/ping", (req, res) => {
 
 app.use("/api/users", require("./api/users"));
 app.use("/api/exoplanets", require("./api/exoplanets"));
+app.use('/api/authenticate', require('./api/authenticate'));
 
 async function connect() {
     try {

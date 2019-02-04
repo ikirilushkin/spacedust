@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {Credentials} from '../user/credentials.model';
+import {AuthService} from '../auth/auth.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login-form',
@@ -9,8 +12,9 @@ import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 export class LoginFormComponent implements OnInit {
   logingForm: FormGroup;
   loginLoading = false;
+  loginResult: any;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder, private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
     this.createForm();
@@ -23,4 +27,26 @@ export class LoginFormComponent implements OnInit {
     });
   }
 
+  public onSubmit(): void {
+    this.logingForm.controls.usernameOrEmail.markAsDirty();
+    this.logingForm.controls.password.markAsDirty();
+    const { usernameOrEmail, password } = this.logingForm.value;
+    const credentials: Credentials = { usernameOrEmail, password };
+    if (this.logingForm.valid) {
+      this.loginLoading = true;
+      this.authService.login(credentials).subscribe(
+        result => {
+          this.loginLoading = false;
+          this.router.navigate(['catalog']);
+        },
+        err => {
+          this.loginResult = {
+            message: err.error.message,
+            state: 'error'
+          };
+          this.loginLoading = false;
+        }
+      );
+    }
+  }
 }
