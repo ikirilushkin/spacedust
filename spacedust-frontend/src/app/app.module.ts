@@ -13,6 +13,7 @@ import { CatalogComponent } from './catalog/catalog.component';
 import {ExoplanetService} from "./exoplanet/exoplanet.service";
 import { ExoplanetCardComponent } from './exoplanet-card/exoplanet-card.component';
 import { LoginFormComponent } from './login-form/login-form.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { LoginFormComponent } from './login-form/login-form.component';
     FormMessageComponent,
     CatalogComponent,
     ExoplanetCardComponent,
-    LoginFormComponent
+    LoginFormComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,

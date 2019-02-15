@@ -5,6 +5,14 @@ const mongoose = require('mongoose');
 const session = require('express-session');
 const app = express();
 
+const checkSession = (req, res, next) => {
+    if (req.session.user && req.session.isAuthenticated) {
+        next();
+    } else {
+        res.status(403).json({ message: "Unauthorized" })
+    }
+};
+
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(session({
@@ -18,8 +26,10 @@ app.get("/ping", (req, res) => {
 });
 
 app.use("/api/users", require("./api/users"));
-app.use("/api/exoplanets", require("./api/exoplanets"));
 app.use('/api/authenticate', require('./api/authenticate'));
+app.use('/api/logout', require('./api/logout'));
+app.use(checkSession);
+app.use('/api/exoplanets', require('./api/exoplanets'));
 
 async function connect() {
     try {
