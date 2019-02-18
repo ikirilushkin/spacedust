@@ -1,15 +1,19 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from "rxjs";
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {AuthService} from '../auth/auth.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ExoplanetService {
 
-  constructor(public http: HttpClient) { }
+  constructor(private http: HttpClient, private authService: AuthService) {
+  }
 
   public getExoplanets(): Observable<any> {
-    return this.http.get('/api/exoplanets');
+    const token: string = this.authService.getToken();
+    const headers: HttpHeaders = new HttpHeaders({Authorization: `Bearer ${token}`});
+    return this.http.get('/api/exoplanets', {headers});
   }
 }

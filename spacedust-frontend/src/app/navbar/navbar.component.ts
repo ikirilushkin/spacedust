@@ -15,14 +15,16 @@ export class NavbarComponent implements OnInit {
   }
 
   logout(): void {
-    this.authService.logout().subscribe(
-      _ => {
-        this.router.navigate(['login']);
-      },
-      err => {
-        alert(err.err.message);
-      }
-    );
+    this.authService.logout();
+    this.router.navigate(['login']);
+    // this.authService.logout().subscribe(
+    //   _ => {
+    //     this.router.navigate(['login']);
+    //   },
+    //   err => {
+    //     alert(err.err.message);
+    //   }
+    // );
   }
 
 }

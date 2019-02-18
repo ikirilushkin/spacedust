@@ -51,6 +51,8 @@ export class SignupFormComponent implements OnInit {
             state: 'success'
           };
           this.signupLoading = false;
+          const { token } = result;
+          this.authService.setToken(token);
           setTimeout(() => {
             this.router.navigate(['catalog']);
           }, 1500);

@@ -1,5 +1,6 @@
 const { getUser } = require('./../../users/query');
 const { verifyPassword } = require('./../../users/util');
+const util = require('./../util');
 
 const postAuthenticate = async (req, res) => {
     try {
@@ -9,12 +10,17 @@ const postAuthenticate = async (req, res) => {
         if (user) {
             const passwordValid = await verifyPassword(password, user.password);
             if (passwordValid) {
-                req.session.user = req.session.user = {
-                    email: user.email,
-                    username: user.username
-                };
-                req.session.isAuthenticated = true;
-                res.json({ message: 'Authentication successful!' });
+                // session implementation
+                // req.session.user = req.session.user = {
+                //     email: user.email,
+                //     username: user.username
+                // };
+                // req.session.isAuthenticated = true;
+
+                // token implementation
+                const token = util.createToken(user);
+                console.log(token);
+                res.json({ message: 'Authentication successful!', token });
             } else {
                 res.status(403).json({ message: 'Wrong username, email, or password.' });
             }
