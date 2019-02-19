@@ -9,4 +9,12 @@ const getExoplanets = async () => {
     }
 };
 
-module.exports = { getExoplanets };
+const getExoplanet = async id => {
+    try {
+        return await Exoplanet.findOne({_id: id});
+    } catch (e) {
+        return e;
+    }
+};
+
+module.exports = {getExoplanets, getExoplanet};

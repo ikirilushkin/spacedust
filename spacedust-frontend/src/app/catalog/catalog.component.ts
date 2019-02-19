@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import {ExoplanetService} from "../exoplanet/exoplanet.service";
+import {Component, OnInit} from '@angular/core';
+import {ExoplanetService} from '../exoplanet/exoplanet.service';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-catalog',
@@ -9,7 +10,8 @@ import {ExoplanetService} from "../exoplanet/exoplanet.service";
 export class CatalogComponent implements OnInit {
   public exoplanets: any[] = [];
 
-  constructor(public exoplanetService: ExoplanetService) { }
+  constructor(public exoplanetService: ExoplanetService, private router: Router) {
+  }
 
   ngOnInit() {
     this.getExoplanets();
@@ -24,5 +26,9 @@ export class CatalogComponent implements OnInit {
         console.log(err);
       }
     );
+  }
+
+  goToExoplanet(id: string): void {
+    this.router.navigate(['exoplanet', id]);
   }
 }

@@ -11,6 +11,10 @@ export class AuthService {
   private readonly TOKEN: string = 'token';
   constructor(public http: HttpClient) {}
 
+  public isAuthenticated(): boolean {
+    return !!this.getToken();
+  }
+
   public signup(user: NewUser): Observable<any> {
     // console.log(user);
     // return empty();

@@ -16,4 +16,10 @@ export class ExoplanetService {
     const headers: HttpHeaders = new HttpHeaders({Authorization: `Bearer ${token}`});
     return this.http.get('/api/exoplanets', {headers});
   }
+
+  public getExoplanet(id: string): Observable<any> {
+    const token = this.authService.getToken();
+    const headers = new HttpHeaders({Authorization: `Bearer ${token}`});
+    return this.http.get(`/api/exoplanets/${id}`, {headers});
+  }
 }
