@@ -3,13 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NewUser } from '../user/user.model';
 import {Credentials} from '../user/credentials.model';
+import {Router} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   private readonly TOKEN: string = 'token';
-  constructor(public http: HttpClient) {}
+  constructor(public http: HttpClient, private router: Router) {}
 
   public isAuthenticated(): boolean {
     return !!this.getToken();
@@ -28,9 +29,12 @@ export class AuthService {
   public logout(): void {
     // return this.http.post('/api/logout', {});
     localStorage.removeItem(this.TOKEN);
+    localStorage.setItem('isAuthenticated', `${false}`);
+    this.router.navigate(['login']);
   }
 
   public setToken(token: string): void {
+    localStorage.setItem('isAuthenticated', `${true}`);
     localStorage.setItem(this.TOKEN, token);
   }
 

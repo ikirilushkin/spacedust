@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {AuthService} from '../auth/auth.service';
 
@@ -12,14 +12,10 @@ export class ExoplanetService {
   }
 
   public getExoplanets(): Observable<any> {
-    const token: string = this.authService.getToken();
-    const headers: HttpHeaders = new HttpHeaders({Authorization: `Bearer ${token}`});
-    return this.http.get('/api/exoplanets', {headers});
+    return this.http.get('/api/exoplanets');
   }
 
   public getExoplanet(id: string): Observable<any> {
-    const token = this.authService.getToken();
-    const headers = new HttpHeaders({Authorization: `Bearer ${token}`});
-    return this.http.get(`/api/exoplanets/${id}`, {headers});
+    return this.http.get(`/api/exoplanets/${id}`);
   }
 }
