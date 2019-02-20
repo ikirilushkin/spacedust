@@ -1,6 +1,7 @@
-const { getUser } = require('./../../users/query');
-const { verifyPassword } = require('./../../users/util');
+const {getUser} = require('./../../users/query');
+const {verifyPassword} = require('./../../users/util');
 const util = require('./../util');
+const jwtDecode = require('jwt-decode');
 
 const postAuthenticate = async (req, res) => {
     try {
@@ -19,13 +20,19 @@ const postAuthenticate = async (req, res) => {
 
                 // token implementation
                 const token = util.createToken(user);
-                console.log(token);
-                res.json({ message: 'Authentication successful!', token });
+                const decodedToken = jwtDecode(token);
+                const expiresAt = decodedToken.exp;
+                const userInfo = {
+                    email: user.email,
+                    username: user.username,
+                    role: user.role
+                };
+                res.json({message: 'Authentication successful!', token, userInfo, expiresAt});
             } else {
-                res.status(403).json({ message: 'Wrong username, email, or password.' });
+                res.status(403).json({message: 'Wrong username, email, or password.'});
             }
         } else {
-            res.status(403).json({ message: 'Wrong username, email, or password.' });
+            res.status(403).json({message: 'Wrong username, email, or password.'});
         }
 
     } catch (err) {
@@ -33,4 +40,4 @@ const postAuthenticate = async (req, res) => {
     }
 };
 
-module.exports = { postAuthenticate };
+module.exports = {postAuthenticate};

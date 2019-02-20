@@ -37,7 +37,7 @@ export class LoginFormComponent implements OnInit {
       this.authService.login(credentials).subscribe(
         result => {
           this.loginLoading = false;
-          this.authService.setToken(result.token);
+          this.authService.setUser(result.token, result.userInfo, result.expiresAt);
           this.router.navigate(['catalog']);
         },
         err => {
