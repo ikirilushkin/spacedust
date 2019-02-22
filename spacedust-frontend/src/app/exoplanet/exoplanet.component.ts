@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Exoplanet} from './exoplanet.model';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {ExoplanetService} from './exoplanet.service';
+import {AuthService} from '../auth/auth.service';
 
 @Component({
   selector: 'app-exoplanet',
@@ -19,7 +20,11 @@ export class ExoplanetComponent implements OnInit {
     image: ''
   };
 
-  constructor(private route: ActivatedRoute, private exoplanetService: ExoplanetService) { }
+  constructor(private route: ActivatedRoute,
+              private exoplanetService: ExoplanetService,
+              public authService: AuthService,
+              private router: Router) {
+  }
 
   ngOnInit() {
     this.route.params.subscribe(param => {
@@ -38,4 +43,16 @@ export class ExoplanetComponent implements OnInit {
     );
   }
 
+  deleteExoplanet(): void {
+    if (confirm('Are you sure you want to delete this exoplanet?')) {
+      this.exoplanetService.deleteExoplanet(this.exoplanet._id).subscribe(
+        data => {
+          this.router.navigate(['catalog']);
+        },
+        err => {
+          console.log(err);
+        }
+      );
+    }
+  }
 }

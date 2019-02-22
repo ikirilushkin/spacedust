@@ -19,4 +19,24 @@ const getExoplanet = async (req, res) => {
     }
 };
 
-module.exports = {getExoplanets, getExoplanet};
+const postExoplanet = async (req, res) => {
+    try {
+        const exoplanet = req.body.data;
+        const newExoplanet = await queries.createExoplanet(exoplanet);
+        res.json({message: 'Exoplanet created', result: newExoplanet});
+    } catch (e) {
+        return e;
+    }
+};
+
+const deleteExoplanet = async (req, res) => {
+    try {
+        const id = req.params.id;
+        await queries.deleteExoplanet(id);
+        res.json({message: 'Exoplanet deleted'});
+    } catch (e) {
+        return e;
+    }
+};
+
+module.exports = {getExoplanets, getExoplanet, postExoplanet, deleteExoplanet};

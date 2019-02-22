@@ -31,6 +31,9 @@
           <p>{{ exoplanet.orbitalPeriod }}</p>
         </div>
       </div>
+      <footer class="card-footer" *ngIf="authService.isAdmin()">
+        <a class="card-footer-item has-text-danger" (click)="deleteExoplanet()">Delete</a>
+      </footer>
     </div>
   </div>
 </div>

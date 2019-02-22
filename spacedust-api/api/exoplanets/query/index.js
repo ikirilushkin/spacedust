@@ -17,4 +17,21 @@ const getExoplanet = async id => {
     }
 };
 
-module.exports = {getExoplanets, getExoplanet};
+const createExoplanet = async exoplanetData => {
+    try {
+        const newExoplanet = new Exoplanet(exoplanetData);
+        return await newExoplanet.save();
+    } catch (e) {
+        return e;
+    }
+};
+
+const deleteExoplanet = async id => {
+    try {
+        return await Exoplanet.findOneAndRemove({_id: id});
+    } catch (e) {
+        return e;
+    }
+};
+
+module.exports = {getExoplanets, getExoplanet, createExoplanet, deleteExoplanet};

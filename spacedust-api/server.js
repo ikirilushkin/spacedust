@@ -4,6 +4,7 @@ const bodyParser = require("body-parser");
 const mongoose = require('mongoose');
 const session = require('express-session');
 const expressJwt = require('express-jwt');
+const jwtDecode = require('jwt-decode');
 const app = express();
 
 const checkSession = (req, res, next) => {
@@ -11,6 +12,20 @@ const checkSession = (req, res, next) => {
         next();
     } else {
         res.status(403).json({ message: "Unauthorized" })
+    }
+};
+
+const attachUser = (req, res, next) => {
+    const token = req.headers.authorization;
+    if (token === 'Bearer null' || !token) {
+        return res.status(401).json({ message: 'Authentication invalid' });
+    }
+    const decodedToken = jwtDecode(token.replace('Bearer ', ''));
+    if (!decodedToken) {
+        return res.status(401).json({ message: 'There was a problem authorizing the request' });
+    } else {
+        req.user = decodedToken;
+        next();
     }
 };
 
@@ -32,6 +47,7 @@ app.use("/api/users", require("./api/users"));
 app.use('/api/authenticate', require('./api/authenticate'));
 app.use('/api/logout', require('./api/logout'));
 // app.use(checkSession);
+app.use(attachUser);
 app.use(checkJwt);
 app.use('/api/exoplanets', require('./api/exoplanets'));
 

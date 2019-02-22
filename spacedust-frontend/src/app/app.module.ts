@@ -17,6 +17,8 @@ import {NavbarComponent} from './navbar/navbar.component';
 import {ExoplanetComponent} from './exoplanet/exoplanet.component';
 import {AuthGuardService} from './auth/auth-guard.service';
 import {TokenInterceptorService as TokenInterceptor} from './auth/token-interceptor.service';
+import { ExoplanetNewComponent } from './exoplanet-new/exoplanet-new.component';
+import {RoleGuardService} from "./auth/role-guard.service";
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import {TokenInterceptorService as TokenInterceptor} from './auth/token-intercep
     ExoplanetCardComponent,
     LoginFormComponent,
     NavbarComponent,
-    ExoplanetComponent
+    ExoplanetComponent,
+    ExoplanetNewComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,7 @@ import {TokenInterceptorService as TokenInterceptor} from './auth/token-intercep
     ReactiveFormsModule,
     HttpClientModule
   ],
-  providers: [ExoplanetService, AuthGuardService,
+  providers: [ExoplanetService, AuthGuardService, RoleGuardService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,
