@@ -2,7 +2,8 @@ const queries = require('./../query');
 
 const getExoplanets = async (req, res) => {
     try {
-        const exoplanets = await queries.getExoplanets();
+        const owner = req.user.id;
+        const exoplanets = await queries.getExoplanets(owner);
         res.json({result: exoplanets});
     } catch (err) {
         return err;
@@ -11,8 +12,9 @@ const getExoplanets = async (req, res) => {
 
 const getExoplanet = async (req, res) => {
     try {
+        const owner = req.user.id;
         const id = req.params.id;
-        const exoplanet = await queries.getExoplanet(id);
+        const exoplanet = await queries.getExoplanet(owner, id);
         res.json({result: exoplanet});
     } catch (err) {
         return err;
@@ -21,8 +23,9 @@ const getExoplanet = async (req, res) => {
 
 const postExoplanet = async (req, res) => {
     try {
+        const owner = req.user.id;
         const exoplanet = req.body.data;
-        const newExoplanet = await queries.createExoplanet(exoplanet);
+        const newExoplanet = await queries.createExoplanet(owner, exoplanet);
         res.json({message: 'Exoplanet created', result: newExoplanet});
     } catch (e) {
         return e;
@@ -31,8 +34,9 @@ const postExoplanet = async (req, res) => {
 
 const deleteExoplanet = async (req, res) => {
     try {
+        const owner = req.user.id;
         const id = req.params.id;
-        await queries.deleteExoplanet(id);
+        await queries.deleteExoplanet(owner, id);
         res.json({message: 'Exoplanet deleted'});
     } catch (e) {
         return e;

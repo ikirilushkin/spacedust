@@ -6,7 +6,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'app-exoplanet-new',
   templateUrl: './exoplanet-new.component.html',
-  styleUrls: ['./exoplanet-new.component. scss']
+  styleUrls: ['./exoplanet-new.component.scss']
 })
 export class ExoplanetNewComponent implements OnInit {
   public exoplanetForm: FormGroup;

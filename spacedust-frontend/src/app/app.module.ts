@@ -18,7 +18,7 @@ import {ExoplanetComponent} from './exoplanet/exoplanet.component';
 import {AuthGuardService} from './auth/auth-guard.service';
 import {TokenInterceptorService as TokenInterceptor} from './auth/token-interceptor.service';
 import { ExoplanetNewComponent } from './exoplanet-new/exoplanet-new.component';
-import {RoleGuardService} from "./auth/role-guard.service";
+import {RoleGuardService} from './auth/role-guard.service';
 
 @NgModule({
   declarations: [
